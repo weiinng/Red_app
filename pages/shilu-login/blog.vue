@@ -17,11 +17,9 @@
 			};
 		},
 		onLoad(options){
-			this.articleurl = '协议网址';
+			this.articleurl = 'https://weiinng.cn/';
 		}
 	}
 </script>
-
 <style>
-
 </style>

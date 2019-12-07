@@ -1,30 +1,17 @@
 <template>
 	<swiper class="swiper-new-list" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-		<swiper-item>
-			<image src="../../static/imags/4862230.jpg" mode="widthFix" lazy-load></image>
-		</swiper-item>
-		<swiper-item>
-			<image src="../../static/imags/6675719.jpg" mode="widthFix" lazy-load></image>
-		</swiper-item>
-		<swiper-item>
-			<image src="../../static/imags/23_1920x1200.jpg" mode="widthFix" lazy-load></image>
-		</swiper-item>
-		<swiper-item>
-			<image src="../../static/imags/5116923.jpg" mode="widthFix" lazy-load></image>
-		</swiper-item>
-		<swiper-item>
-			<image src="../../static/imags/8318125.jpg" mode="widthFix" lazy-load></image>
-		</swiper-item>
-		<swiper-item>
-			<image src="../../static/imags/8165133.jpg" mode="widthFix" lazy-load></image>
-		</swiper-item>
+		<block v-for="(val,index) in carouselList" :key="index">
+			<swiper-item>
+				<image :src="val.img" mode="widthFix" lazy-load></image>
+			</swiper-item>
+		</block>
 	</swiper>
 </template>
 
 <script>
 	export default {
 		props:{
-			
+			carouselList:Array
 		},
 		data() {
 			return {

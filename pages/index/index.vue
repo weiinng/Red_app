@@ -5,7 +5,6 @@
 				<swiper-tab-header :tabBars="tabBars" :tabIndex="tabIndex" @tabtap="tabtap"></swiper-tab-header>
 			</view>
 		</view>
-		
 		<!-- 搜索、语音、提示 -->
 		<view class="index-list2 u-f-ac">
 			<view>
@@ -15,7 +14,7 @@
 		</view>
 		<!-- 直播视频的位置 -->
 		<view class="index-list3">
-			<new-topic-swiper></new-topic-swiper>
+			<new-topic-swiper :carouselList="top_imgs"></new-topic-swiper>
 		</view>
 		<!-- 标题 -->
 		<view class="index-list4">
@@ -85,6 +84,29 @@
 		},
 		data() {
 			return {
+				top_imgs:[
+					{
+						img:"../../static/imags/7089841.jpg",
+					},
+					{
+						img:"../../static/imags/7089841.jpg",
+					},
+					{
+						img:"../../static/imags/7089841.jpg",
+					},
+					{
+						img:"../../static/imags/7089841.jpg",
+					},
+					{
+						img:"../../static/imags/7089841.jpg",
+					},
+					{
+						img:"../../static/imags/7089841.jpg",
+					},
+					{
+						img:"../../static/imags/7089841.jpg",
+					}
+				],
 				swiperheight:500,
 				lanmu:"栏目大全",
 				"zhuchi":"名人主持",
@@ -222,8 +244,7 @@
 
 <style>
 .viewzhanwei{
-	border: 1upx solid #3B4144;
-	height: 500upx;
+	height: 300upx;
 	width: 100%;
 }
 .index-list{
@@ -242,7 +263,6 @@
 }
 .index-list3{
 	width: 100%;
-	height: 350upx;
 	margin-top: 25upx;
 }
 .index-list4{

@@ -61,11 +61,19 @@
 		},
 		{
             "path" : "pages/ceshi/ceshi",
-            "style" : {}
+            "style" : {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
         }
         ,{
             "path" : "pages/member/member",     //会员
-            "style" : {}
+            "style" : {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
         }
         ,{
             "path" : "pages/personalCenter/personalCenter",   //个人中心
@@ -105,43 +113,84 @@
 			"path":"pages/search/search",
 			"style":{
 				"app-plus":{
-					"titleNView":false
+					"titleNView":false,
+					"bounce":"none"
 				}
 			}
 		},
 		{
 		    "path": "pages/shilu-login/blog",
-		    "style": {}
+		    "style": {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
 		},
 		{
 		    "path": "pages/shilu-login/forget",
-		    "style": {}
+		    "style": {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
 		},
 		{
 		    "path": "pages/shilu-login/login",
-		    "style": {}
+		    "style": {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
 		},
 		{
 		    "path": "pages/shilu-login/reg",
-		    "style": {}
+		    "style": {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
 		},
 		{
 		    "path": "pages/feedback/feedback",
-		    "style": {}
+		    "style": {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
 		}
 		
         
         ,{
             "path" : "pages/detail-classify/detail-classify",
-            "style" : {}
+            "style" : {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
         }
         ,{
             "path" : "pages/detail-centent/detail-centent",
-            "style" : {}
+            "style" : {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
         }
         ,{
             "path" : "pages/memberCenter/memberCenter",
-            "style" : {}
+            "style" : {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
+        }
+        ,{
+            "path" : "pages/posterList/posterList",
+            "style" : {
+				"app-plus":{
+					"bounce":"none"
+				}
+			}
         }
     ],
 	"globalStyle": {
