@@ -1,0 +1,194 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"app-plus":{
+					"scrollIndicator":"nonoe",     //隐藏滚动条
+					"bounce":"none",   //关闭反弹效果
+					"titleNView":false
+				},
+				"navigationBarTitleText":""
+			}
+		},
+		
+		{
+		    "path":"pages/microFilm/microFilm",   //微电影
+		    "style": {
+		    	"app-plus":{
+					"bounce":"none",   //关闭反弹效果
+		    		"scrollIndicator":"nonoe",     //隐藏滚动条
+		    		"titleNView":{
+		    			// 搜索框page
+		    			"searchInput":{
+		    				"align":"center",
+		    				"backgroundColor":"#F7F7F7",
+		    				"borderRadius":"4px",
+		    				"placeholder":"您感兴趣的内容！",       //提示框内容
+		    				"placeholderColor":"#CCCCCC",    
+		    				"disabled":true       //是否可以输入内容
+		    			},
+		    			//配置按钮
+		    			"buttons":[
+		    				//左边
+		    				{	
+		    					"color":"#FBADAE",
+		    					"colorPredssed":"#BBBBBB",
+		    					"float":"left",
+		    					"fontWeight":"bold",
+		    					"fontSize":"40upx",
+		    					"fontSrc":"/static/font/iconfont.ttf",
+		    					"text":"\ue60e"
+		    					
+		    				},
+		    				//右边
+		    				{
+		    					"color":"#FBADAE",
+		    					"colorPredssed":"#BBBBBB",
+		    					"float":"right",
+		    					"fontWeight":"bold",
+		    					"fontSize":"40upx",
+		    					"fontSrc":"/static/font/iconfont.ttf",
+		    					"text":"\ue72c"
+		    					
+		    				}
+		    			]							
+		    			
+		    		}	
+		    	},
+		    	"navigationBarTitleText":""
+		    }
+		},
+		{
+            "path" : "pages/ceshi/ceshi",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/member/member",     //会员
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/personalCenter/personalCenter",   //个人中心
+            "style" : {
+				"navigationBarTitleText":"个人中心",
+				"app-plus":{
+					"scrollIndicator":"nonoe",
+					"bounce":"none",   //关闭反弹效果
+					"titleNView":{
+						"buttons":[
+							//左边
+							{
+								"color":"#5E5E5E",
+								"colorPredssed":"#BBBBBB",
+								"float":"left",
+								"fontWeight":"bold",
+								"fontSize":"40upx",
+								"fontSrc":"/static/font/iconfont.ttf",
+								"text":"\ue60c"
+							},
+							//右边
+							{
+								"color":"#5E5E5E",
+								"colorPredssed":"#BBBBBB",
+								"float":"right",
+								"fontWeight":"bold",
+								"fontSize":"40upx",
+								"fontSrc":"/static/font/iconfont.ttf",
+								"text":"\ue771"
+							}
+						]
+					}
+				}
+			}
+        },
+		{
+			"path":"pages/search/search",
+			"style":{
+				"app-plus":{
+					"titleNView":false
+				}
+			}
+		},
+		{
+		    "path": "pages/shilu-login/blog",
+		    "style": {}
+		},
+		{
+		    "path": "pages/shilu-login/forget",
+		    "style": {}
+		},
+		{
+		    "path": "pages/shilu-login/login",
+		    "style": {}
+		},
+		{
+		    "path": "pages/shilu-login/reg",
+		    "style": {}
+		},
+		{
+		    "path": "pages/feedback/feedback",
+		    "style": {}
+		}
+		
+        
+        ,{
+            "path" : "pages/detail-classify/detail-classify",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/detail-centent/detail-centent",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/memberCenter/memberCenter",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	
+	//底部导航
+	"tabBar":{
+		"color":"#bfbfbf",  //字体颜色
+		"selectedColor":"#FD7E42",     //被选中的颜色
+		"backgroundColor":"#FFFFFF",      //背景颜色
+ 		"borderStyle":"white",
+		
+		"list":[
+			{
+				"pagePath":"pages/index/index",  //页面路径
+				"text":"首页",
+				"iconPath":"static/DownNavigationBar/shouye1.png",
+				"selectedIconPath":"static/DownNavigationBar/shouye2.png"
+			},
+			{
+				"pagePath":"pages/microFilm/microFilm",  //页面路径
+				"text":"微电影",
+				"iconPath":"static/DownNavigationBar/weidianying1.png",
+				"selectedIconPath":"static/DownNavigationBar/weidianying2.png"
+			},
+			{
+				"pagePath":"pages/member/member",  //页面路径
+				"text":"VIP会员",
+				"iconPath":"static/DownNavigationBar/vip1.png",
+				"selectedIconPath":"static/DownNavigationBar/vip2.png"
+			},
+			{
+				"pagePath":"pages/personalCenter/personalCenter",  //页面路径
+				"text":"个人中心",
+				"iconPath":"static/DownNavigationBar/gerenzhongxin1.png",
+				"selectedIconPath":"static/DownNavigationBar/gerenzhongxin2.png"
+			},
+			{
+				"pagePath":"pages/ceshi/ceshi",  //页面路径
+				"text":"页面page",
+				"iconPath":"static/logo.png",
+				"selectedIconPath":"static/logo.png"
+			}
+		]
+	}
+}
