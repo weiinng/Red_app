@@ -3,12 +3,12 @@
 		<block v-for="(val,index) in fourList" :key="index">
 			<view class="four-list">
 				<image class="four-list-img" :src="val.img"></image>
-				<view class="four-list-title u-f-jsb">
+				<view class="four-list-title u-f-ajsb">
 					<view>{{val.title}}</view>
 					<view class="icon iconfont icon-redu"></view>
 				</view>
 				<view class="four-list-info">{{val.info}}</view>
-				<view class="hot-and-share u-f-jsb">
+				<view class="hot-and-share u-f-ajsb">
 					<view class="icon iconfont icon-kanjian">{{val.lookNun}}</view>
 					<view class="icon iconfont icon-zhuanfa">转发</view>
 				</view>

@@ -1,5 +1,5 @@
 <template>
-	<view class="index-list7 u-f-jsb">
+	<view class="index-list7 u-f-ajsb">
 		<view>{{headerTitle}}</view>
 		<view class="icon iconfont icon-gengduo"></view>
 	</view>

@@ -5,7 +5,7 @@
 				<image :src="val.zhuchirenImg"></image>
 				<view class="zhuchiName">{{val.zhuchirenName}}</view>
 				<view class="zhuchiInfo">{{val.zhuchirenInfo}}</view>
-				<view class="u-f-jsb">
+				<view class="u-f-ajsb">
 					<view class="icon iconfont icon-redu">热度</view>
 					<view class="icon iconfont icon-cangkuchakan">主页</view>
 				</view>
@@ -22,7 +22,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .zhuchiren{
 	width: 100%;
 	height: 320upx;

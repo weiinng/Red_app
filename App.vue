@@ -2,13 +2,15 @@
 	import Vue from 'vue'
 	
 	export default {
+		
+		
+		
 		created() {
 			// #ifdef APP-PLUS
 			plus.navigator.closeSplashscreen(); 
 			// #endif 
 		},
 		onLaunch: function() {
-			
 			console.log('App Launch')
 			uni.getSystemInfo({
 				success: function(e) {
@@ -40,7 +42,10 @@
 		},
 		onHide: function() {
 			console.log('App 关闭')
-		}
+		},
+		globalData: {  
+		    requestUrl:'http://127.0.0.1:8000',
+		},  
 	}
 </script>
 
@@ -55,5 +60,11 @@
 	
 	
 	@import './common/common.css';
+	
+	/* #ifndef APP-PLUS-NVUE */
+	@import "./static/font-icon/iconfont.css";
+	/* #endif */
+	/*每个页面公共css */
+	/* page{height: 100%;width: 100%;} */
 	
 </style>

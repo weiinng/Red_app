@@ -1,0 +1,105 @@
+<template>
+	<view>
+		<view class="uni-tab-bar">
+			<swiper class="swiper-box" :style="{height:swiperheight+'px'}">
+				<!-- 推荐 -->
+				<swiper-item>
+					<scroll-view scroll-y class="list" @scrolltolower="loadmore">
+						<template v-if="videoList.list.length>0">
+							<!-- 图文列表 -->
+							<block v-for="(val,index1) in videoList.list" :key='index1'>
+								<index-list :val="val" :index="index1"></index-list>
+							</block>
+							<!-- 上拉加载 -->
+							<load-more :loadtext="videoList.loadtext"></load-more>
+						</template>
+						<template v-else>
+							<noThing></noThing>
+						</template>
+					</scroll-view>
+				</swiper-item>
+			</swiper>
+		</view>
+	</view>
+</template>
+
+<script>
+	import indexList from "@/components/microFilm/index-list.vue";
+	import noThing from "@/components/common/no-thing.vue";
+	import loadMore from "@/components/common/load-more.vue";
+	export default {
+		components:{
+			loadMore,
+			noThing,
+			indexList,
+		},
+		data() {
+			return {
+				requestUrl:getApp().globalData.requestUrl,
+				videoList:{
+					loadtext:"上拉加载更多",
+					list:[]
+				},
+				swiperheight:800,
+				videolistPop:0,
+			}
+		},
+		onLoad() {
+			uni.getSystemInfo({
+				success:(res) => {
+					let height = res.windowHeight-uni.upx2px(100);
+					this.swiperheight=height;
+				}
+			});
+		},
+		mounted() {
+			this.gitTuijianVideo()
+		},
+		methods: {
+			// 请求页内数据
+			gitTuijianVideo(){
+				uni.request({
+					url: this.requestUrl+'/video/micro_list/0', //接口地址
+					method: 'GET', //请求方式
+					//传参
+					header: {
+						'content-type': 'application/x-www-form-urlencoded' 
+					},
+					success:(res) => {
+						//打印接口的数据
+						// console.log(res.data.video_list);
+						this.videoList.list = res.data.video_list
+					}
+				});
+				
+			},
+			loadmore(index){
+				if(this.videoList.loadtext!="上拉加载更多"){return;}
+				this.videoList.loadtext="加载中.....";
+				var videolistPop = this.videoList.list.pop().id
+				setTimeout(() => {
+					uni.request({
+						url: this.requestUrl+'/video/micro_list/'+videolistPop, //接口地址
+						method: 'GET', //请求方式
+						//传参
+						header: {
+							'content-type': 'application/x-www-form-urlencoded' 
+						},
+						success:(res) => {
+							//打印接口的数据
+							// console.log(res.data.video_list);
+							this.videoList.list = this.videoList.list.concat(res.data.video_list)
+							this.videoList.loadtext = "上拉加载更多";
+						}
+					});
+				},1000);
+				// this.videoList.loadtext ="没有更多数据了";
+			},
+		}
+	}
+</script>
+
+<style scoped>
+	
+
+</style>

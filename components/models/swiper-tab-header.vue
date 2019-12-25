@@ -7,7 +7,7 @@
 				</view>
 			</block>
 		</scroll-view>
-	</view>
+	</view> 
 </template>
 
 <script>

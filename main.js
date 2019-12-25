@@ -6,7 +6,8 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 
-
+import $http from '@/zhouWei-request/requestConfig';
+Vue.prototype.$http = $http;
 
 
 

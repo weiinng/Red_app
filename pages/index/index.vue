@@ -1,225 +1,167 @@
 <template>
+	<!-- <view class="container999 index-list" @click="conClick" @touchstart="refreshStart" @touchmove="refreshMove" @touchend="refreshEnd"> -->
 	<view class="index-list">
-		<view class="index-list1">
-			<view>
-				<swiper-tab-header :tabBars="tabBars" :tabIndex="tabIndex" @tabtap="tabtap"></swiper-tab-header>
+		<!-- <refresh ref="refresh" @isRefresh='isRefresh'></refresh> -->
+				<!-- 点击反馈组件 -->
+		<!-- <clickCircle ref="clickCircle"></clickCircle> -->
+		<uni-nav-bar>
+			<view class='nav'>
+				<!-- #ifdef H5 -->
+					<view style="height: 44px;width: 100%;">边距盒子</view>
+				<!-- #endif -->
+				<!-- 导航栏 agents导航栏标题 -->
+				<navTab ref="navTab" :tabTitle="tabTitle" @changeTab='changeTab'></navTab>	
 			</view>
-		</view>
-		<!-- 搜索、语音、提示 -->
-		<view class="index-list2 u-f-ac">
-			<view>
-				央视主持人、赛事详情
-			</view>
-			<view class="icon iconfont icon-tishi"></view>
-		</view>
-		<!-- 直播视频的位置 -->
-		<view class="index-list3">
-			<new-topic-swiper :carouselList="top_imgs"></new-topic-swiper>
-		</view>
-		<!-- 标题 -->
-		<view class="index-list4">
-			
-		</view>
-		<!-- 节目单 -->
-		<view class="index-list5">
-			<view>节目单1</view>
-			<view>节目单2</view>
-			<view>节目单3</view>
-			<view>节目单4</view>
-		</view>
-		<view class="index-list6 icon iconfont icon-Group"></view>
+		</uni-nav-bar>
 		
-		<!-- 栏目大全star -->
-		<uni-headertitle :headerTitle="lanmu" ></uni-headertitle>
-		<view class="index-list8">
-			<scroll-view scroll-x="true" class="scroll-list">
-				<block v-for="(val,index) in lamuList" :key='index'>
-					<view class="scroll-view">
-						<image :src="val.imgSrc" lazy-load></image>
-						<view>{{val.title}}</view>
-						<view>{{val.intro}}</view>
+		<!-- 分割线 -->
+		<swiper style="min-height: 100vh;" :current="currentTab" @change="swiperTab">
+			<swiper-item v-for="(listItem,listIndex) in list" :key="listIndex">
+				<!-- <scroll-view style="height: 100%;" scroll-y="true" @scrolltolower="lower1" scroll-with-animation :scroll-into-view="toView"> -->
+				<scroll-view style="height: 100%;" scroll-y scroll-with-animation :scroll-into-view="toView">
+				<!-- <view :id="'top'+listIndex" style="width: 100%;height: 100upx;"></view> -->
+				<view class='content'>
+					<!-- 推荐 -->
+					<view v-if="listIndex == 0">
+						<!-- 外联页面-推荐 -->
+						<index-recommend></index-recommend>
+						<!-- 外联推荐end -->
 					</view>
-				</block>
-			</scroll-view>
-		</view>
+					<!-- 推荐end -->
+					
+					<!-- 爱看 -->
+					<view v-if="listIndex == 1">
+						<!-- <swiper style="height: 30vh;width: 100vw;">
+							<swiper-item v-for="(item,inde) in 3" :key="inde">
+								<image style="height: 100%;width:100%;" src="../../static/logo.png"></image>
+							</swiper-item>
+						</swiper> -->
+						<!-- 外联模板 -->
+						<index-lovelook></index-lovelook>
+						<!-- 外链模板end -->
+					</view>
+					<!-- 关注end -->
+					
+					<!-- 电影 -->
+					<view v-if="listIndex == 2">
+						<!-- 电影外联模板 -->
+							<index-film></index-film>
+						<!-- 电影end -->
+					</view>
+					<!-- end -->
+					
+					<!-- 综艺 -->
+					<view v-if="listIndex == 3">
+						关注
+					</view>
+					<!-- 关注end -->
+					
+					<!-- 体育 -->
+					<view v-if="listIndex == 4">
+						体育
+					</view>
+					<!-- 关注end -->
+					
+					<!-- 赛事 -->
+					<view v-if="listIndex == 5">
+						赛事
+					</view>
+					<!-- 关注end -->
+					
+					<!-- 更多 -->
+					<view v-if="listIndex == 6">
+						更多
+					</view>
+					<!-- 关注end -->
+					
+					<!-- <view class='card' v-for="(item,index) in listItem" v-if="listItem.length > 0" :key="index">
+						{{item}}
+					</view> -->
+				</view>
+				<!-- <view class='noCard' v-if="listItem.length===0">
+					暂无信息
+				</view> -->
+				<view style="width: 100%;height: 100upx;opacity:0;">底部占位盒子</view>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+		
+		
+		
 		<!-- end -->
 		
-		<!-- 名人主持板块 -->
-		<uni-headertitle :headerTitle="zhuchi"></uni-headertitle>
-		
-		<view class="index-list9">
-			<zhuchiren-list :zhuchiren="zhuchiren"></zhuchiren-list>
-		</view>
-		<!-- end -->
-		
-		<!-- 四个视频star -->
-		<view>
-			<!-- four video -->
-			<uni-headertitle :headerTitle="fourHeader.headerTitle" :plateId="fourHeader.plateId"></uni-headertitle>
-			<!-- 只接受四条信息 -->
-			<uni-fourvideo :fourList="fourHeader.bodyList"></uni-fourvideo>
-		</view>
-		<!-- end -->
 		
 		
-		<view class="viewzhanwei"></view>
+		
+		
+		
+		
+		
 	</view>
 	
 </template>
 <script>
 	import swiperTabHeader from "../../components/models/swiper-tab-header.vue";
-	import zhuchirenList from "../../components/index/zhuchiren-list.vue";
-	import uniFourvideo from "../../components/common/uni-four-video.vue";
 	import uniHeadertitle from "../../components/common/uni-header-title.vue";
-	// 轮播图 顶部
-	import newTopicSwiper from "../../components/common/new-topic-swiper.vue"
+	
+	// 自定义导航栏
+	import uniNavBar from "../../components/uni-nav-bar/uni-nav-bar.vue";
+	import liuyunoTabs from "@/components/liuyuno-tabs/liuyuno-tabs.vue";
+	import loadMore from "@/components/common/load-more.vue";
+	
+	
+	// 
+	import indexAttention from "../../components/tabindex/index-attention.vue";
+	import indexRecommend from "../../components/tabindex/index-recommend.vue";
+	import indexFilm from "../../components/tabindex/index-film.vue";
+	import indexLovelook from "../../components/tabindex/index-lovelook.vue";
+	
+	
+	// 
+	import refresh from '../../components/models/refresh.vue';
+	import navTab from '../../components/models/navTab.vue';
+	import clickCircle from '../../components/models/clickCircle.vue';
+	import tabBar4 from '../../components/models/tabBar4.vue';
 	
 	export default {
 		components:{
 			swiperTabHeader,
-			zhuchirenList,
-			uniFourvideo,
 			uniHeadertitle,
-			newTopicSwiper
+			uniNavBar,
+			liuyunoTabs,
+			loadMore,
+			
+			indexRecommend,
+			indexAttention,
+			indexFilm,
+			indexLovelook,
+			
+			// 
+			refresh,navTab,clickCircle,tabBar4
 		},
 		data() {
 			return {
-				top_imgs:[
-					{
-						img:"../../static/imags/7089841.jpg",
-					},
-					{
-						img:"../../static/imags/7089841.jpg",
-					},
-					{
-						img:"../../static/imags/7089841.jpg",
-					},
-					{
-						img:"../../static/imags/7089841.jpg",
-					},
-					{
-						img:"../../static/imags/7089841.jpg",
-					},
-					{
-						img:"../../static/imags/7089841.jpg",
-					},
-					{
-						img:"../../static/imags/7089841.jpg",
-					}
-				],
+				currentPage:'other',
+				toView:'',//回到顶部id
+				isX:0,//放在store统一管理
+				isY:999,//放在store统一管理
+				tabTitle:[
+					'精选',
+					'爱看',
+					'电影',
+					'综艺',
+					"体育",
+					"赛事",
+					"更多"
+				], //导航栏格式 --导航栏组件
+				currentTab: 0, //sweiper所在页
+				pages:[1,1,1,1], //第几个swiper的第几页
+				list: [[],[],[],[],[],[],[],],//数据格式
+				tabIndex:0,
 				swiperheight:500,
-				lanmu:"栏目大全",
-				"zhuchi":"名人主持",
 				list2:[
 					1,2,3,4
-				],
-				fourHeader:{
-					"headerTitle":"赛事专区",
-					"plateId":"",
-					"bodyList":[
-						// 只传入四条信息
-						{	
-							"id":"",
-							"title":"套马杆",
-							"info":"关于内蒙古大草原",
-							"img":"../../static/imags/7089841.jpg",
-							"lookNun":"8000",
-							"isHot":true
-						},
-						{
-							"id":"",
-							"title":"海阔天空",
-							"info":"关于内蒙古大草原",
-							"img":"../../static/imags/7089841.jpg",
-							"lookNun":"8000",
-							"isHot":false
-						},
-						{
-							"id":"",
-							"title":"童话",
-							"info":"我要变成童话里！",
-							"img":"../../static/imags/7089841.jpg",
-							"lookNun":"8000",
-							"isHot":false
-						},
-						{
-							"id":"",
-							"title":"你爱着的那天使。",
-							"info":"关于内蒙古大草原",
-							"img":"../../static/imags/7089841.jpg",
-							"lookNun":"8000",
-							"isHot":true
-						}
-					]
-				},
-				zhuchiren:[
-					{	
-						"zhuchirenId":"0",
-						"zhuchirenImg":"../../static/imags/8165133.jpg",
-						"zhuchirenName":"潘光源",
-						"zhuchirenInfo":"河南电视台",
-					},
-					{
-						"zhuchirenId":"0",
-						"zhuchirenImg":"../../static/imags/8165133.jpg",
-						"zhuchirenName":"潘光源",
-						"zhuchirenInfo":"河南电视台",
-					},
-					{
-						"zhuchirenId":"0",
-						"zhuchirenImg":"../../static/imags/8165133.jpg",
-						"zhuchirenName":"潘光源",
-						"zhuchirenInfo":"河南电视台",
-					},
-					{
-						"zhuchirenId":"0",
-						"zhuchirenImg":"../../static/imags/8165133.jpg",
-						"zhuchirenName":"潘光源",
-						"zhuchirenInfo":"河南电视台",
-					},
-					{
-						"zhuchirenId":"0",
-						"zhuchirenImg":"../../static/imags/8165133.jpg",
-						"zhuchirenName":"潘光源",
-						"zhuchirenInfo":"河南电视台",
-					},
-				],
-				lamuList:[
-					{
-						"id":"1",
-						"title":"改革开放70周年",
-						"intro":"为改革开放70周年。。。",
-						"imgSrc":"../../static/imags/8165133.jpg"
-					},
-					{
-						"id":"1",
-						"title":"改革开放70周年",
-						"intro":"为改革开放70周年。。。",
-						"imgSrc":"../../static/imags/8165133.jpg"
-					},
-					{
-						"id":"1",
-						"title":"改革开放70周年",
-						"intro":"为改革开放70周年。。。",
-						"imgSrc":"../../static/imags/8165133.jpg"
-					},
-					{
-						"id":"1",
-						"title":"改革开放70周年",
-						"intro":"为改革开放70周年。。。",
-						"imgSrc":"../../static/imags/8165133.jpg"
-					},
-					
-				],
-				tabBars:[
-					{id:"1",name:"精选"},
-					{id:"2",name:"关注"},
-					{id:"3",name:"主持人"},
-					{id:"4",name:"体育"},
-					{id:"5",name:"娱乐"},
-					{id:"6",name:"游戏"}
-				],
-				tabIndex:0
+				]
 			}
 		},
 		// 监控屏幕高度
@@ -231,13 +173,83 @@
 				}
 			});
 		},
+		// onLoad(e) {
+			
+		// },
+		onShow() {},
+		onHide() {},
 		methods: {
-			tabtap(index){
-				this.tabIndex=index;
+			// isRefresh(){
+			// 		setTimeout(() => {
+			// 			uni.showToast({
+			// 				icon: 'success',
+			// 				title: '刷新成功'
+			// 			})
+			// 			this.$refs.refresh.endAfter() //刷新结束调用
+			// 		}, 1000)
+			// },
+			toTop(){
+				this.toView = ''
+				setTimeout(()=>{
+					this.toView = 'top' + this.currentTab
+				},10)
 			},
-			tabChange(e){
-				this.tabIndex=e.detail.current;
-			}
+			changeTab(index){
+				this.currentTab = index
+			},
+			// 点击反馈事件
+			conClick(e) {
+			    this.$refs.clickCircle.conClick(e);
+			},
+			
+			// 其他请求事件 当然刷新和其他请求可以写一起 多一层判断。
+			isRequest(pages) {
+				return new Promise((resolve, reject) => {
+					this.pages[this.currentTab]++
+					var that = this
+					setTimeout(() => {
+						uni.hideLoading()
+						uni.showToast({
+							icon: 'none',
+							title: `请求第${that.currentTab + 1 }个导航栏的第${that.pages[that.currentTab]}页数据成功`
+						})
+						let newData = ['新数据1','新数据2','新数据3']
+						resolve(newData)
+					}, 1000)
+				})
+			},
+			
+			// swiper 滑动
+			swiperTab: function(e) {
+				var index = e.detail.current //获取索引
+				this.$refs.navTab.longClick(index);
+			},
+			// 加载更多 util.throttle为防抖函数
+			// lower1: util.throttle(function(e) {
+			// console.log(`加载${this.currentTab}`)//currentTab表示当前所在页数 根据当前所在页数发起请求并带上page页数
+			// uni.showLoading({
+			// 	title: '加载中',
+			// 	mask:true
+			// })
+			// 	this.isRequest().then((res)=>{
+			// 		let tempList = this.list
+			// 		tempList[this.currentTab] = tempList[this.currentTab].concat(res)
+			// 		console.log(tempList)
+			// 		this.list = tempList
+			// 		this.$forceUpdate() //二维数组，开启强制渲染
+			// 	})
+			// }, 300),
+			
+			// 刷新touch监听
+			// refreshStart(e) {
+			// 	this.$refs.refresh.refreshStart(e);
+			// },
+			// refreshMove(e){
+			// 	this.$refs.refresh.refreshMove(e);
+			// },
+			// refreshEnd(e) {
+			// 	this.$refs.refresh.refreshEnd(e);
+			// },
 		}
 	}
 </script>
@@ -247,11 +259,13 @@
 	height: 300upx;
 	width: 100%;
 }
+.uni-nav-bar-height{
+	width: 100upx;
+}
 .index-list{
-	margin-top: 5%;
 }
 .index-list2>view:first-child{
-	width: 82%;
+	width: 600upx;
 	height: 20%;
 	border-radius: 100upx;
 	background: #F8F8F8;
@@ -261,36 +275,9 @@
 	color: #DEDEDE;
 	text-align: center;
 }
-.index-list3{
-	width: 100%;
-	margin-top: 25upx;
-}
-.index-list4{
-	width: 100%;
-	height: 70upx;
-	border: 1upx solid #3B4144;
-}
-.index-list5{	
-	width: 100%;
-	height: 120upx;
-	border: 1upx solid #3B4144;
-}
-.index-list5>view{
-	float: left;
-	height: 30upx;
-	width: 300upx;
-	margin: 0upx 33upx;
-	text-align: center;
-	font-size: 20upx;
-	
-}
-.index-list6{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 30upx;
-	color: #AAAAAA;
-}
+
+
+
 .index-list7{
 	margin: 0 29upx;
 }
@@ -301,31 +288,109 @@
 .index-list7>view:last-child{
 	font-size: 40upx;
 }
-.scroll-list{
-    width: 100%;
-	height: 280upx;
-	overflow: hidden;
- 	white-space: nowrap;
-	margin-left: 30upx;
+
+
+
+.addBtnBox{
+	position: fixed;
+	z-index:900;
+	width: 140upx;
+	align-items: flex-end;
+	justify-content: center;
+	height: 140upx;
+	display:flex;
+	.addBtn{
+		width: 100upx;
+		height: 100upx;
+		border-radius: 50%;
+		color: white;
+		font-size: 10px;
+		font-weight: bold;
+		background: #444857;
+		line-height: 100upx;
+		text-align: center;
+		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	}
 }
-.scroll-view{
-	display: inline-block;
-	width: 320upx;
-	height: 280upx;
-	margin-right: 15upx;
+.container999 {
+  width: 100vw;
+  font-size: 28upx;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #6B8082;
+  position: relative;
+  background-color: #f6f6f6;
 }
-.scroll-view>image{
-	height: 190upx;
+.content {
+	width: 100%;
+}
+
+.card {
+	width: 90%;
+	height: 368upx;
+	background-color: white;
+	margin: 0 auto 42upx auto;
+	background: #FFFFFF;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.10);
+	border-radius: 5px;
 	position: relative;
-	width: 320upx;
+}
+
+.noCard {
+	width: 90%;
+	height: 200upx;
+	margin: auto;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #999999;
+	box-shadow: 0 0 10upx 0 rgba(0, 0, 0, 0.10);
 	border-radius: 10upx;
 }
-.scroll-view>view:first-child{
-	font-size: 23upx;
-	font-weight:800
+
+
+.nav {
+	position: fixed;
+	left: 0;
+	top: 0;
+	color: white;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	font-size: 24upx;
+	background-color: #50B7EA;
+	z-index: 996;
 }
-.scroll-view>view:last-child{
-	font-size: 20upx;
-	color: #E1DDDD;
+
+.searchInput999 {
+	width: 90%;
+	margin: 0 auto;
+	background: white;
+	border-radius: 30upx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 56upx;
+}
+
+.search999 {
+	width: 32upx;
+	height: 32upx;
+}
+
+.searchBox999 {
+	width: 56upx;
+	height: 56upx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.input999 {
+	color: #999;
+	width: 80%;
 }
 </style>
