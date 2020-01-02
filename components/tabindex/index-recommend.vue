@@ -2,10 +2,14 @@
 	<view>
 		<!-- 直播视频的位置 -->
 		<view class="index-list3">
-			<new-topic-swiper :carouselList="top_imgs"></new-topic-swiper>
+			<!-- <new-topic-swiper :carouselList="top_imgs"></new-topic-swiper> -->
+			<swiper style="height: 30vh;width: 100vw;">
+				<swiper-item v-for="(item,inde) in top_imgs" :key="inde">
+					<image style="height: 100%;width:100%;" :src="item.img"></image>
+				</swiper-item>
+			</swiper>
 		</view>
 		<!-- end -->
-		
 		
 		<!-- 标题 -->
 		<view class="index-list4">
@@ -46,7 +50,7 @@
 		<!-- 名人主持板块 -->
 		<uni-headertitle :headerTitle="compereObj.comperetitle"></uni-headertitle>
 		<view class="index-list9">
-			<zhuchiren-list :zhuchiren="compereObj.comperelist"></zhuchiren-list>
+			<zhuchiren-list :zhuchiren="compereObj.comperelist" @openHome="zhuchirenHome"></zhuchiren-list>
 		</view>
 		<!-- end -->
 		
@@ -65,6 +69,10 @@
 </template>
 
 <script>
+	import request from "@/common/request.js"
+	
+	
+	
 	// 轮播图 顶部
 	import newTopicSwiper from "@/components/common/new-topic-swiper.vue";
 	// 滚动标题
@@ -93,10 +101,10 @@
 			return {
 				top_imgs:[
 					{	id:"",
-						img:"../../static/imags/7089841.jpg",
+						img:"http://qiniu.weiinng.cn/%E5%B9%B4%E6%8A%A5.jpg",
 					},
 					{
-						img:"../../static/imags/7089841.jpg",
+						img:"http://qiniu.weiinng.cn/%E6%9C%89%E6%A2%A6%E6%B5%B7%E6%8A%A5.jpg",
 					},
 					{
 						img:"../../static/imags/7089841.jpg",
@@ -162,39 +170,40 @@
 						},
 					]
 				},
+				// 主持人信息
 				compereObj:{
 					comperetitle:"名人主持",
 					comperelist:[
 						{
-							"zhuchirenId":"0",
-							"zhuchirenImg":"../../static/imags/8165133.jpg",
-							"zhuchirenName":"潘光源",
-							"zhuchirenInfo":"河南电视台",
+							"id":"0",
+							"big_v_img1":"../../static/imags/8165133.jpg",
+							"name":"潘光源",
+							"info":"人气主持人",
 						},
 						{
-							"zhuchirenId":"0",
-							"zhuchirenImg":"../../static/imags/8165133.jpg",
-							"zhuchirenName":"潘光源",
-							"zhuchirenInfo":"河南电视台",
+							"id":"0",
+							"big_v_img1":"../../static/imags/8165133.jpg",
+							"name":"潘光源",
+							"info":"人气主持人",
 						},
 						{
-							"zhuchirenId":"0",
-							"zhuchirenImg":"../../static/imags/8165133.jpg",
-							"zhuchirenName":"潘光源",
-							"zhuchirenInfo":"河南电视台",
+							"id":"0",
+							"big_v_img1":"../../static/imags/8165133.jpg",
+							"name":"潘光源",
+							"info":"人气主持人",
 						},
 						{
-							"zhuchirenId":"0",
-							"zhuchirenImg":"../../static/imags/8165133.jpg",
-							"zhuchirenName":"潘光源",
-							"zhuchirenInfo":"河南电视台",
+							"id":"0",
+							"big_v_img1":"../../static/imags/8165133.jpg",
+							"name":"潘光源",
+							"info":"人气主持人",
 						},
 						{
-							"zhuchirenId":"0",
-							"zhuchirenImg":"../../static/imags/8165133.jpg",
-							"zhuchirenName":"潘光源",
-							"zhuchirenInfo":"河南电视台",
-						}
+							"id":"0",
+							"big_v_img1":"../../static/imags/8165133.jpg",
+							"name":"潘光源",
+							"info":"人气明星",
+						},
 					]
 				},
 				columnList:[
@@ -279,7 +288,28 @@
 				],
 			}
 		},
+		mounted() {
+			this.getProList()
+			
+		},
 		methods: {
+			zhuchirenHome(e){
+				console.log(e)
+				uni.navigateTo({
+					url:'../../pages/celebrity/celebrity?id='+e
+				})
+			},
+			getProList(){
+				request.request({
+					url:"/index/compere_list",
+					method:"GET"
+				}).then(res => {
+					// 获取返货信息替换原有信息
+					this.compereObj.comperelist = res.data.zhuchiren_list;
+				}).catch( err => {
+					console.log("失败！")
+				})
+			},
 			addProgram(){
 				var addProgram = [
 					{
@@ -352,7 +382,7 @@
 }
 .scroll-view>view:first-child{
 	font-size: 23upx;
-	font-weight:800
+	font-weight:800;
 }
 .scroll-view>view:last-child{
 	font-size: 20upx;

@@ -299,7 +299,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.container {
 		padding-bottom: 100rpx;
 		box-sizing: border-box;

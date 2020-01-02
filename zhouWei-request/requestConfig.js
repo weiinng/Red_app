@@ -1,5 +1,5 @@
 import request from "./request";
-let baseUrl = "http://127.0.0.1:8000";
+let baseUrl = "http://106.13.67.197:8000";
 //可以new多个request来支持多个域名请求
 let $http = new request({
 	//接口请求地址

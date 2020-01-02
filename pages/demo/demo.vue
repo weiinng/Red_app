@@ -10,6 +10,7 @@
 		<navigator url="../mine/photoalbum">我的相册</navigator>
 		<navigator url="../index/index1">测试导航</navigator>
 		<navigator url="../index/index2">测试2</navigator>
+		<navigator url="../video-details/video-details">视频主页</navigator>
 		<button @tap="changeUserInfo">请求接口</button>
 	</view>
 </template>

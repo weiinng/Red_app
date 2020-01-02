@@ -1,6 +1,6 @@
 <template>
 	<view class="personage-list">
-		<view class="personage-list1 u-f-ac" @tap="openUserInfo">
+		<view class="personage-list1 u-f-ac" @tap="fnOpenWin('mine/user-set-space')">
 			<image :src="userInfo.userImg" lazy-load></image>
 			<view>{{userInfo.userName}}</view>
 		</view>
@@ -11,12 +11,15 @@
 				<view>会员专区</view>
 			</view>
 			<view class="hr-ytag"></view>
-			<view class="u-f-ac">
+			<view class="u-f-ac" @tap="fnOpenWin('mine/my-follow')">
 				<view class="icon iconfont icon-wodeguanzhu"></view>
 				<view>我的关注</view>
 			</view>
 		</view>
 		<view class="hr-tag"></view>
+		<view class="guanggao1 u-f-ajc">
+			<image :src="guanggao1"></image>
+		</view>
 		<view class="personage-list3">
 			<image src="../../static/objImg/huancun.png" class="not-tag"></image>
 			<view>离线缓存</view>
@@ -34,30 +37,34 @@
 				</block>
 			</scroll-view>
 		</view>
+		<!-- 外联one -->
 		<view class="hr-1"></view>
 		<view class="personage-list3">
 			<image src="../../static/objImg/rongmei.png" class="not-tag"></image>
 			<view>央视融媒</view>
 			<image src="../../static/objImg/info-right.png"></image>
 		</view>
+		<!-- 外联two -->
 		<view class="hr-1"></view>
 		<view class="personage-list3">
 			<image src="../../static/objImg/jinri.png" class="not-tag"></image>
-			<view>今日中国</view>
-			<image src="../../static/objImg/info-right.png"></image>
+			<view>清廉中国</view>
+			<image src="../../static/objImg/info-right.png" @tap="fnOpenWin('friend-link/qinglianzhongguo')"></image>
 		</view>
-		<view class="hr-1"></view>
+		<!-- 外联three -->
+		<!-- <view class="hr-1"></view>
 		<view class="personage-list3">
 			<image src="../../static/objImg/baobo.png" class="not-tag"></image>
 			<view>交通报播</view>
 			<image src="../../static/objImg/info-right.png"></image>
-		</view>
-		<view class="hr-1"></view>
+		</view> -->
+		<!-- 外联four -->
+		<!-- <view class="hr-1"></view>
 		<view class="personage-list3">
 			<image src="../../static/objImg/hezuo.png" class="not-tag"></image>
 			<view>商务合作</view>
 			<image src="../../static/objImg/info-right.png"></image>
-		</view>
+		</view> -->
 
 
 		
@@ -68,6 +75,7 @@
 	export default {
 		data() {
 			return {
+				guanggao1:"http://qiniu.weiinng.cn/%E8%BE%89%E7%85%8C%E6%8A%A5.jpg",
 				userInfo:{
 					"userName":"weiinng.cn",
 					"userImg":"../../static/imags/5001669.jpg",
@@ -109,16 +117,27 @@
 			}
 		},
 		methods: {
-			openUserInfo(){
-				uni.navigateTo({
-					url:"../../pages/mine/user-set-space"
-				})
+			/// 跳转打开新窗口
+			fnOpenWin(type) {
+			  uni.navigateTo({
+			    url: `/pages/${type}`
+			  })
 			}
 		}
 	}
 </script>
 
 <style>
+.guanggao1{
+	
+}
+.guanggao1>image{
+	width: 95%;
+	height: 130upx;
+	border-radius: 20upx;
+	margin: 10upx 0upx;
+	
+}
 .hr-tag{
 	width: 100%;
 	height: 30upx;

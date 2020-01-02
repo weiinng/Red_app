@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 背景图 + 用户基本信息 -->
-		<user-space-head :userinfo="userinfo"></user-space-head>
+		<star-space-head :userinfo="userinfo"></star-space-head>
 		<!-- 统计 -->
 		<view class="user-space-data">
 			<home-data :homedata="spacedata"></home-data>
@@ -15,13 +15,12 @@
 		scrollItemStyle="width:33.33%;"
 		scrollStyle="border-bottom:0;">
 		</swiper-tab-head>
-		
+		<template v-if="tabIndex==0">
+			<!-- 主页 -->
+			<star-space-userinfo :userinfo="userinfo"></star-space-userinfo>
+		</template>
 		<block v-for="(item,index) in tablist" :key="index">
-			<template v-if="tabIndex==0">
-				<!-- 主页 -->
-				<user-space-userinfo :userinfo="userinfo"></user-space-userinfo>
-			</template>
-			<template v-else-if="tabIndex==index">
+			<template v-if="tabIndex==index">
 				<!-- 列表 -->
 				<block v-for="(list,listindex) in item.list" :key="listindex">
 					<common-list :item="list" :index="listindex"></common-list>
@@ -32,49 +31,45 @@
 		</block>
 		
 		<!-- 操作菜单 -->
-		<user-space-popup :show="show" 
+		<star-space-popup :show="show" 
 		@hide="togleShow"
 		@lahei="lahei"
-		@beizhu="beizhu"></user-space-popup>
+		@beizhu="beizhu"></star-space-popup>
 		
 	</view>
 </template>
 
 <script>
-	import userSpaceHead from "../../components/user-space/user-space-head.vue";
+	import request from "@/common/request.js"
+	
+	
+	
+	
+	import starSpaceHead from "../../components/star-space/star-space-head.vue";
 	import homeData from "../../components/home/home-data.vue";
 	import swiperTabHead from "../../components/index/swiper-tab-head.vue";
-	import userSpaceUserinfo from "../../components/user-space/user-space-userinfo.vue";
+	
+	
+	
+	import starSpaceUserinfo from "../../components/star-space/star-space-userinfo.vue";
+	
 	import commonList from "../../components/common1/common-list.vue";
 	import loadMore from "../../components/common/load-more.vue";
-	import userSpacePopup from "../../components/user-space/user-space-popup.vue";
+	import starSpacePopup from "../../components/star-space/star-space-popup.vue";
 	export default {
 		components:{
-			userSpaceHead,
+			starSpaceHead,
 			homeData,
 			swiperTabHead,
-			userSpaceUserinfo,
+			starSpaceUserinfo,
 			commonList,
 			loadMore,
-			userSpacePopup
+			starSpacePopup
 		},
 		data() {
 			return {
 				show:false,
-				userinfo:{
-					bgimg:1,
-					userpic:"../../static/demo/userpic/11.jpg",
-					username:"昵称",
-					sex:0,
-					age:20,
-					isguanzhu:false,
-					regtime:"2019-04-11",
-					id:1213,
-					birthday:"1987-02-07",
-					job:"IT",
-					path:"广东广州",
-					qg:"已婚"
-				},
+				userinfo:{},
 				spacedata:[
 					{ name:"获赞", num:"10k" },
 					{ name:"关注", num:11 },
@@ -202,6 +197,11 @@
 				]
 			}
 		},
+		// 获取url传来的值
+		onLoad(option) {
+			this.userId=option.id
+			console.log("接收到参数为："+option.id)
+		},
 		// 上拉触底事件
 		onReachBottom() {
 			// 上拉加载
@@ -210,7 +210,25 @@
 		onNavigationBarButtonTap(e) {
 			if(e.index==0){ this.togleShow(); }
 		},
+		mounted() {
+			// 调用这个函数
+			this.gitBigVinfo()
+			
+		},
 		methods: {
+			gitBigVinfo(){
+				request.request({
+					url:'/index/compere_particulars/1',
+					method: 'GET'
+				}).then(res => {
+					if(res.data.status==200){
+						this.userinfo = res.data.zhuchiren_info
+					}
+					console.log(res.data)
+				}).catch(err => {
+					console.log("失败！")
+				})
+			},
 			// 操作菜单显示隐藏
 			togleShow(){
 				this.show=!this.show;

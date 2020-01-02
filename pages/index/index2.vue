@@ -152,18 +152,18 @@
 		justify-content: center;
 		height: 140upx;
 		display:flex;
-		.addBtn{
-			width: 100upx;
-			height: 100upx;
-			border-radius: 50%;
-			color: white;
-			font-size: 10px;
-			font-weight: bold;
-			background: #444857;
-			line-height: 100upx;
-			text-align: center;
-			box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-		}
+	}
+	.addBtn{
+		width: 100upx;
+		height: 100upx;
+		border-radius: 50%;
+		color: white;
+		font-size: 10px;
+		font-weight: bold;
+		background: #444857;
+		line-height: 100upx;
+		text-align: center;
+		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	}
 		.container999 {
 	  width: 100vw;

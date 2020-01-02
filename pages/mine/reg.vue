@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="header">
-			<image src="../../static/shilu-login/logo.png"></image>
+			<image src="../../static/rongmei_logo.jpg"></image>
 		</view>
 		
 		<view class="list">
@@ -25,20 +25,24 @@
 			</view>
 			
 		</view>
-		
-		<view class="dlbutton" hover-class="dlbutton-hover" @tap="bindLogin">
-			<text>注册</text>
-		</view>
-		
 		<view class="xieyi">
 			<image @tap="xieyitong" :src="xieyi==true?'/static/shilu-login/ty1.png':'/static/shilu-login/ty0.png'"></image>
 			<text @tap="xieyitong"> 同意</text>
 			<navigator url="blog?id=1" open-type="navigate">《软件用户协议》</navigator>
 		</view>
+		<view class="dlbutton" hover-class="dlbutton-hover" @tap="bindLogin">
+			<text>注册</text>
+		</view>
+		<view class="xieyi jump-login">
+			<navigator url="forget" open-type="navigate">忘记密码</navigator>
+			<text>|</text>
+			<navigator url="login" open-type="navigate">点击登录</navigator>
+		</view>
 	</view>
 </template>
 
 <script>
+	import request from "@/common/request.js"
 	var tha,js;
 	export default {
 		onLoad(){
@@ -57,7 +61,7 @@
 				invitation:'',
 				xieyi:true,
 				showPassword:false,
-				second:0
+				second:0,
 			};
 		},
 		computed:{
@@ -66,9 +70,9 @@
 					return '获取验证码';
 				}else{
 					if(this.second<10){
-						return '重新获取0'+this.second;
+						return '重新获取0'+this.second+'s';
 					}else{
-						return '重新获取'+this.second;
+						return '重新获取'+this.second+'s';
 					}
 				}
 			}
@@ -84,26 +88,39 @@
 				if(this.second>0){
 					return;
 				}
-				this.second = 60;
-				uni.request({
-				    url: 'http://***/getcode.html', //仅为示例，并非真实接口地址。
-				    data: {phoneno:this.phoneno,code_type:'reg'},
-					method: 'POST',
-					dataType:'json',
-				    success: (res) => {
-						if(res.data.code!=200){
-							uni.showToast({title:res.data.msg,icon:'none'});
-						}else{
-							uni.showToast({title:res.data.msg});
-							js = setInterval(function(){
-								tha.second--;
-								if(tha.second==0){
-									clearInterval(js)
-								}
-							},1000)
-						}
-				    }
-				});
+				let js = setInterval( () => {
+					this.second--;
+					if(this.second==0){
+						clearInterval(js)
+					}
+				},1000)
+				
+				request.request({
+					url:"/common/getverification", //接口地址   
+					data: {phoneno:this.phoneno,code_type:'reg'},
+					method:'POST',
+				}).then(res => {
+					// 首先判断sta是否等于200如果等于200则发出贴士。
+					if(res.data.status==200){
+						uni.showToast({
+							title:res.data.msg,
+							icon:'none'
+						})
+						this.second = 60;
+					}
+					// 如果不等于200则提示用户验证码出现异常
+					else{
+						uni.showToast({
+							title:res.data.msg,
+							icon:'none'
+						})
+						this.second = 5
+					}
+				}).catch(err => {
+					console.log(err)
+					this.second = 60;
+					uni.showToast({title:"验证码出现异常，请稍后重试。",icon:'none'});
+				})
 			},
 		    bindLogin() {
 				if (this.xieyi == false) {
@@ -116,14 +133,14 @@
 				if (this.phoneno.length !=11) {
 				    uni.showToast({
 				        icon: 'none',
-				        title: '手机号不正确'
+				        title: '手机号长度不符'
 				    });
 				    return;
 				}
 		        if (this.password.length < 6) {
 		            uni.showToast({
 		                icon: 'none',
-		                title: '密码不正确'
+		                title: '密码不得小于6位'
 		            });
 		            return;
 		        }
@@ -134,28 +151,28 @@
 				    });
 				    return;
 				}
-				uni.request({
-				    url: 'http://***/reg.html',
-				    data: {
-						phoneno:this.phoneno,
-						password:this.password,
-						code:this.code,
-						invitation:this.invitation
+				// 用户注册接口
+				request.request({
+					url: '/app/register_user',
+					data: {
+							phoneno:this.phoneno,
+							password:this.password,
+							code:this.code,
+							invitation:this.invitation
 					},
-					method: 'POST',
-					dataType:'json',
-				    success: (res) => {
-						if(res.data.code!=200){
-							uni.showToast({title:res.data.msg,icon:'none'});
-						}else{
-							uni.showToast({title:res.data.msg});
-							setTimeout(function(){
-								uni.navigateBack();
-							},1500) 
-						}
-				    }
-				});
-				
+					method:"POST"
+				}).then(res => {
+					if(res.data.code!=200){
+						uni.showToast({title:res.data.msg,icon:'none'});
+					}else{
+						uni.showToast({title:"注册成功。"});
+						setTimeout(function(){
+							uni.navigateBack({
+							    delta: 1
+							});
+						},1500) 
+					}
+				});	
 		    }
 		}
 	}
@@ -257,5 +274,13 @@
 	.xieyi image{
 		width: 40upx;
 		height: 40upx;
+	}
+	.jump-login{
+		color: #007AFF;
+		font-size: 32upx;
+		font-weight: 700;
+	}
+	.jump-login >text{
+		margin: 0upx 20upx;
 	}
 </style>

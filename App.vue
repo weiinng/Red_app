@@ -58,13 +58,13 @@
 	/* 引入css动画 */
 	@import './common/animate.css';
 	
-	
 	@import './common/common.css';
+	@import './common/relation.css';
 	
 	/* #ifndef APP-PLUS-NVUE */
 	@import "./static/font-icon/iconfont.css";
 	/* #endif */
 	/*每个页面公共css */
 	/* page{height: 100%;width: 100%;} */
-	
+
 </style>

@@ -2,12 +2,12 @@
 	<scroll-view scroll-x class="zhuchiren">
 		<block v-for="(val,index) in zhuchiren" :key="index">
 			<view class="zhuchiren-view">
-				<image :src="val.zhuchirenImg"></image>
-				<view class="zhuchiName">{{val.zhuchirenName}}</view>
-				<view class="zhuchiInfo">{{val.zhuchirenInfo}}</view>
+				<image :src="val.big_v_img1"></image>
+				<view class="zhuchiName">{{val.name}}</view>
+				<view class="zhuchiInfo">{{val.info || '人气主持人'}}</view>
 				<view class="u-f-ajsb">
 					<view class="icon iconfont icon-redu">热度</view>
-					<view class="icon iconfont icon-cangkuchakan">主页</view>
+					<view class="icon iconfont icon-cangkuchakan" @tap="$emit('openHome',val.id)">主页</view>
 				</view>
 			</view>
 		</block>

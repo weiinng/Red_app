@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="header">
-			<image src="../../static/shilu-login/logo.png"></image>
+			<image src="../../static/rongmei_logo.jpg"></image>
 		</view>
 		
 		<view class="list">
@@ -34,6 +34,10 @@
 </template>
 
 <script>
+	
+	import request from "@/common/request.js"
+	
+	
 	var tha;
 	import {mapMutations} from 'vuex';
 	export default {
@@ -63,25 +67,29 @@
 		            });
 		            return;
 		        }
-				uni.request({
-				    url: 'http://***/login.html',
-				    data: {
+				request.request({
+					url:'/app/login_user',
+					data: {
 						phoneno:this.phoneno,
 						password:this.password
 					},
-					method: 'POST',
-					dataType:'json',
-				    success: (res) => {
-						if(res.data.code!=200){
-							uni.showToast({title:res.data.msg,icon:'none'});
-						}else{
-							uni.setStorageSync('user_data', JSON.stringify(res.data.data));
-							this.login();
-							uni.navigateBack();
-						}
-				    }
-				});
-				
+					method: 'POST',	
+				}).then(res => {
+					if(res.data.code!=200){
+						uni.showToast({title:res.data.msg,icon:'none'});
+					}else{
+						uni.setStorageSync('user_data', JSON.stringify(res.data.data));
+						this.login();
+						uni.navigateTo({
+							url:"./personalCenter"
+						})
+					}
+				}).catch(err =>{
+					uni.showToast({
+						title:"服务器出了点问题，请稍后重试！",
+						icon:"none"
+					})
+				})	
 		    },
 			login_weibo() {
 				//微博登录

@@ -134,45 +134,45 @@
 		},
 		
 		// 会员页
-		{
-            "path" : "pages/member/member",
-            "style" : {
-				"app-plus": {
-					"titleNView": false,
-					"bounce":"none",
-					"subNVues": [{
-						"id": "drawer",
-						"path": "pages/member/subnvue/drawer",
-						"type": "popup",
-						"style": {
-							"height": "100%",
-							"position":"absolute",
-							"bottom":"0",
-							"background":"transparent"
-						}
-					},{
-						"id": "forward",
-						"path": "pages/member/subnvue/forward",
-						"type": "popup",
-						"style": {
-							"height": "100%",
-							"position":"absolute",
-							"bottom":"0",
-							"background":"transparent"
-						}
-					},{
-						"id": "marskTop",
-						"path": "pages/member/subnvue/marskTop",
-						"style":{
-							"height": "88px",
-							"position":"absolute",
-							"top":"0",
-							"background":"transparent"
-						}
-					}]
-				}
-			}
-        },
+		// {
+  //           "path" : "pages/member/member",
+  //           "style" : {
+		// 		"app-plus": {
+		// 			"titleNView": false,
+		// 			"bounce":"none",
+		// 			"subNVues": [{
+		// 				"id": "drawer",
+		// 				"path": "pages/member/subnvue/drawer",
+		// 				"type": "popup",
+		// 				"style": {
+		// 					"height": "100%",
+		// 					"position":"absolute",
+		// 					"bottom":"0",
+		// 					"background":"transparent"
+		// 				}
+		// 			},{
+		// 				"id": "forward",
+		// 				"path": "pages/member/subnvue/forward",
+		// 				"type": "popup",
+		// 				"style": {
+		// 					"height": "100%",
+		// 					"position":"absolute",
+		// 					"bottom":"0",
+		// 					"background":"transparent"
+		// 				}
+		// 			},{
+		// 				"id": "marskTop",
+		// 				"path": "pages/member/subnvue/marskTop",
+		// 				"style":{
+		// 					"height": "88px",
+		// 					"position":"absolute",
+		// 					"top":"0",
+		// 					"background":"transparent"
+		// 				}
+		// 			}]
+		// 		}
+		// 	}
+  //       },
 		//我的 
 		{
             "path" : "pages/mine/personalCenter",   //个人中心
@@ -329,6 +329,31 @@
             "style" : {
 				"disableScroll":true
 			}
+        }
+        // 外联
+        ,{
+            "path" : "pages/friend-link/yangshirongmei",
+            "style" : {
+				"navigationBarTitleText":"央视融媒网"
+			}
+        }
+        ,{
+            "path" : "pages/friend-link/qinglianzhongguo",
+            "style" : {
+				"navigationBarTitleText":"清廉中国网"
+			}
+        },
+		
+		// 详情页
+		{
+		  "path": "pages/video-details/video-details",
+		  "style": {
+		    "navigationBarTitleText": "视频详情"
+		  }
+		}
+        ,{
+            "path" : "pages/mine/user-agreement",
+            "style" : {}
         }
     ],
 	"globalStyle": {

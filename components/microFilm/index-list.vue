@@ -8,13 +8,13 @@
 			<view class="valTitle">{{val.column_name}}的作品</view>
 		</template>
 		<view class="index-list1 u-f-ajc">
-			<!-- <image :src="val.videoImg" lazy-load></image>
-			<view class="icon iconfont icon-bofang micorFilm-list-play"></view> -->
-			<video 
+			<image :src="val.video_img" lazy-load></image>
+			<view class="icon iconfont icon-bofang micorFilm-list-play"></view>
+			<!-- <video 
 			:src="val.video_url"
 			:poster="val.video_img"
 			objectFit="fill"
-			></video>
+			></video> -->
 		</view>
 		<view class="index-list2 u-f-ajsb">
 			<!-- 左边 -->

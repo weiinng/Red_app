@@ -5,7 +5,7 @@
 				<!-- 推荐 -->
 				<swiper-item>
 					<scroll-view scroll-y class="list" @scrolltolower="loadmore">
-						<template v-if="videoList.list.length>0">
+						<template v-if="videoLenght > 0">
 							<!-- 图文列表 -->
 							<block v-for="(val,index1) in videoList.list" :key='index1'>
 								<index-list :val="val" :index="index1"></index-list>
@@ -24,6 +24,9 @@
 </template>
 
 <script>
+	import request from "@/common/request.js"
+	
+	
 	import indexList from "@/components/microFilm/index-list.vue";
 	import noThing from "@/components/common/no-thing.vue";
 	import loadMore from "@/components/common/load-more.vue";
@@ -42,6 +45,7 @@
 				},
 				swiperheight:800,
 				videolistPop:0,
+				videoLenght:0,
 			}
 		},
 		onLoad() {
@@ -58,19 +62,18 @@
 		methods: {
 			// 请求页内数据
 			gitTuijianVideo(){
-				uni.request({
-					url: this.requestUrl+'/video/micro_list/0', //接口地址
-					method: 'GET', //请求方式
-					//传参
-					header: {
-						'content-type': 'application/x-www-form-urlencoded' 
-					},
-					success:(res) => {
-						//打印接口的数据
-						// console.log(res.data.video_list);
-						this.videoList.list = res.data.video_list
-					}
-				});
+				request.request({
+					url: '/video/micro_list/0', //接口地址
+					method: 'GET'
+				}).then(res => {
+					// 打印接口的数据
+					// console.log(res.data.video_list);
+					this.videoList.list = res.data.video_list,
+					this.videoLenght = this.videoList.list.length,
+					console.log(this.videoLenght)
+				}).catch(err => {
+					console.log("失败！")
+				})
 				
 			},
 			loadmore(index){
@@ -78,20 +81,16 @@
 				this.videoList.loadtext="加载中.....";
 				var videolistPop = this.videoList.list.pop().id
 				setTimeout(() => {
-					uni.request({
-						url: this.requestUrl+'/video/micro_list/'+videolistPop, //接口地址
-						method: 'GET', //请求方式
-						//传参
-						header: {
-							'content-type': 'application/x-www-form-urlencoded' 
-						},
-						success:(res) => {
-							//打印接口的数据
-							// console.log(res.data.video_list);
-							this.videoList.list = this.videoList.list.concat(res.data.video_list)
-							this.videoList.loadtext = "上拉加载更多";
-						}
-					});
+					request.request({
+						url:"/video/micro_list/"+videolistPop, //接口地址   
+						method: 'GET'
+					}).then(res => {
+						this.videoList.list = this.videoList.list.concat(res.data.video_list)
+						this.videoList.loadtext = "上拉加载更多";
+						console.log(res.data)
+					}).catch(err => {
+						console.log("失败！")
+					})
 				},1000);
 				// this.videoList.loadtext ="没有更多数据了";
 			},

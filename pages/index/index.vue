@@ -51,27 +51,27 @@
 					<!-- end -->
 					
 					<!-- 综艺 -->
-					<view v-if="listIndex == 3">
+<!-- 					<view v-if="listIndex == 3">
 						关注
-					</view>
+					</view> -->
 					<!-- 关注end -->
 					
 					<!-- 体育 -->
-					<view v-if="listIndex == 4">
+<!-- 					<view v-if="listIndex == 4">
 						体育
-					</view>
+					</view> -->
 					<!-- 关注end -->
 					
 					<!-- 赛事 -->
-					<view v-if="listIndex == 5">
+<!-- 					<view v-if="listIndex == 5">
 						赛事
-					</view>
+					</view> -->
 					<!-- 关注end -->
 					
 					<!-- 更多 -->
-					<view v-if="listIndex == 6">
+<!-- 					<view v-if="listIndex == 6">
 						更多
-					</view>
+					</view> -->
 					<!-- 关注end -->
 					
 					<!-- <view class='card' v-for="(item,index) in listItem" v-if="listItem.length > 0" :key="index">
@@ -149,10 +149,10 @@
 					'精选',
 					'爱看',
 					'电影',
-					'综艺',
-					"体育",
-					"赛事",
-					"更多"
+					// '综艺',
+					// "体育",
+					// "赛事",
+					// "更多"
 				], //导航栏格式 --导航栏组件
 				currentTab: 0, //sweiper所在页
 				pages:[1,1,1,1], //第几个swiper的第几页
@@ -254,7 +254,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .viewzhanwei{
 	height: 300upx;
 	width: 100%;
@@ -299,7 +299,8 @@
 	justify-content: center;
 	height: 140upx;
 	display:flex;
-	.addBtn{
+}
+.addBtn{
 		width: 100upx;
 		height: 100upx;
 		border-radius: 50%;
@@ -311,7 +312,6 @@
 		text-align: center;
 		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	}
-}
 .container999 {
   width: 100vw;
   font-size: 28upx;
